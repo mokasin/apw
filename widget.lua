@@ -26,6 +26,8 @@ local color_bg_mute = '#532a15' -- background color when muted
 local awful = require("awful")
 local pulseaudio = require("apw.pulseaudio")
 
+p = pulseaudio:Create()
+
 pulseWidget = awful.widget.progressbar()
 
 pulseWidget:set_width(width)
@@ -42,23 +44,23 @@ function pulseWidget.setColor(mute)
 end
 
 function pulseWidget.Update()
-	pulseWidget:set_value(pulseaudio.Volume)
-	pulseWidget.setColor(pulseaudio.Mute)
+	pulseWidget:set_value(p.Volume)
+	pulseWidget.setColor(p.Mute)
 end
 
 function pulseWidget.Up()
-	pulseaudio.SetVolume(pulseaudio.Volume + pulseWidget.step)
+	p:SetVolume(p.Volume + pulseWidget.step)
 	pulseWidget.Update()
 end	
 
 function pulseWidget.Down()
-	pulseaudio.SetVolume(pulseaudio.Volume - pulseWidget.step)
+	p:SetVolume(p.Volume - pulseWidget.step)
 	pulseWidget.Update()
 end	
 
 
 function pulseWidget.ToggleMute()
-	pulseaudio.ToggleMute()
+	p:ToggleMute()
 	pulseWidget.Update()
 end
 
@@ -73,6 +75,6 @@ pulseWidget:buttons(awful.util.table.join(
 
 -- initialize
 pulseWidget.Update(false)
-pulseWidget.setColor(pulseaudio.Mute)
+pulseWidget.setColor(p.Mute)
 
 return pulseWidget

@@ -19,13 +19,25 @@
 
 local pulseaudio = {}
 
-pulseaudio.Volume = 0     -- volume of default sink
-pulseaudio.Mute = false   -- state of the mute flag of the default sink
 
 local cmd = "pacmd"
 local default_sink = "default"
 
-function pulseaudio.GetState()
+function pulseaudio:Create()
+	o = {}
+	setmetatable(o, self)
+	self.__index = self
+
+	o.Volume = 0     -- volume of default sink
+	o.Mute = false   -- state of the mute flag of the default sink
+
+	-- retreive current state from Pulseaudio
+	pulseaudio.GetState(o)
+
+	return o
+end
+
+function pulseaudio:GetState()
 	local f = io.popen(cmd .. " dump")
 
 	-- if the cmd can't be found
@@ -46,7 +58,7 @@ function pulseaudio.GetState()
 	-- retreive volume of default sink
 	for sink, value in string.gmatch(out, "set%-sink%-volume ([^%s]+) (0x%x+)") do
 		if sink == default_sink then
-			pulseaudio.Volume = tonumber(value) / 0x10000
+			self.Volume = tonumber(value) / 0x10000
 		end
 	end
 
@@ -59,9 +71,9 @@ function pulseaudio.GetState()
 	end
 
 	if m == "yes" then
-		pulseaudio.Mute = true
+		self.Mute = true
 	else
-		pulseaudio.Mute = false
+		self.Mute = false
 	end
 
 
@@ -69,7 +81,7 @@ function pulseaudio.GetState()
 end
 
 -- Sets the volume of the default sink to vol from 0 to 1.
-function pulseaudio.SetVolume(vol)
+function pulseaudio:SetVolume(vol)
 	if vol > 1 then
 		vol = 1
 	end
@@ -83,25 +95,22 @@ function pulseaudio.SetVolume(vol)
 	io.popen(cmd .. " set-sink-volume " .. default_sink .. " " .. string.format("0x%x", vol))
 
 	-- …and update values.
-	pulseaudio.GetState()
+	self:GetState()
 end
 
 
 -- Toggles the mute flag of the default default_sink.
-function pulseaudio.ToggleMute()
-	if pulseaudio.Mute then
+function pulseaudio:ToggleMute()
+	if self.Mute then
 		io.popen(cmd .. " set-sink-mute " .. default_sink .. " 0")
 	else
 		io.popen(cmd .. " set-sink-mute " .. default_sink .. " 1")
 	end
 	
 	-- …and update values.
-	pulseaudio.GetState()
+	self:GetState()
 end
 
-
--- Fetch current state on module load.
-pulseaudio.GetState()
 
 return pulseaudio
 
