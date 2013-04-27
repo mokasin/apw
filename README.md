@@ -9,10 +9,19 @@ It's compatible to Awesome 3.5.
 
 First time I'm using Lua. So it might be a little bit quirky.
 
-Usage
+Get it
+------------
+
+```sh
+cd $XDG_CONFIG_HOME/awesome/
+git clone https://github.com/mokasin/apw.git
+```
+
+Use it
 -----
 
-Just put these line to the appropriate places.
+Just put these line to the appropriate places in
+*$XDG_CONFIG_HOME/awesome/rc.lua*.
 
 ```lua
 -- Load the widget.
@@ -22,18 +31,19 @@ local APW = require("apw/widget")
 right_layout:add(APW)
 
 -- Configure the hotkeys.
-awful.key({ }, "XF86AudioRaiseVolume",  function () pulseWidget.Up() end),
-awful.key({ }, "XF86AudioLowerVolume",  function () pulseWidget.Down() end),
-awful.key({ }, "XF86AudioMute",         function () pulseWidge.ToggleMute() end),
+awful.key({ }, "XF86AudioRaiseVolume",  APW.Up),
+awful.key({ }, "XF86AudioLowerVolume",  APW.Down),
+awful.key({ }, "XF86AudioMute",         APW.ToggleMute),
 
 ```
 
-You could update the widget periodically, if you'd like, in case, the volume is
+### Tip
+You could update the widget periodically if you'd like. In case, the volume is
 changed from somewhere else.
 
 ```lua
 APWTimer = timer({ timeout = 0.5 }) -- set update interval in s
-APWTimer:connect_signal("timeout", function() AWP.Update() end)
+APWTimer:connect_signal("timeout", AWP.Update)
 APWTimer:start()
 ```
 
