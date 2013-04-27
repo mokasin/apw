@@ -1,0 +1,42 @@
+Awesome Pulseaudio Widget
+=========================
+
+Awesome Pulseaudio Widget (APW) is a little widget for
+[Awesome WM](http://awesome.naquadah.org/), using the awful progressbar widget,
+to display default's sink volume and control Pulseaudio.
+
+It's compatible to Awesome 3.5.
+
+First time I'm using Lua. So it might be a little bit quirky.
+
+Usage
+-----
+
+Just put these line to the appropriate places.
+
+```lua
+-- Load the widget.
+local APW = require("apw/widget")
+
+-- Example: Add to wibox. Here to the right. Do it the way you like it.
+right_layout:add(APW)
+
+-- Configure the hotkeys.
+awful.key({ }, "XF86AudioRaiseVolume",  function () pulseWidget.Up() end),
+awful.key({ }, "XF86AudioLowerVolume",  function () pulseWidget.Down() end),
+awful.key({ }, "XF86AudioMute",         function () pulseWidge.ToggleMute() end),
+
+```
+
+You could update the widget periodically, if you'd like, in case, the volume is
+changed from somewhere else.
+
+```lua
+APWTimer = timer({ timeout = 0.5 }) -- set update interval in s
+APWTimer:connect_signal("timeout", function() AWP.Update() end)
+APWTimer:start()
+```
+
+Contributing
+------------
+Just fork it and file a pull request. I'll look into it.
