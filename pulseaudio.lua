@@ -21,7 +21,7 @@ local pulseaudio = {}
 
 
 local cmd = "pacmd"
-local default_sink = "default"
+local default_sink = ""
 
 function pulseaudio:Create()
 	o = {}
@@ -52,6 +52,7 @@ function pulseaudio:GetState()
 	default_sink = string.match(out, "set%-default%-sink ([^\n]+)")
 
 	if default_sink == nil then
+		default_sink = ""
 		return false
 	end
 

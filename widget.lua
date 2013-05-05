@@ -26,9 +26,9 @@ local color_bg_mute = '#532a15' -- background color when muted
 local awful = require("awful")
 local pulseaudio = require("apw.pulseaudio")
 
-p = pulseaudio:Create()
+local p = pulseaudio:Create()
 
-pulseWidget = awful.widget.progressbar()
+local pulseWidget = awful.widget.progressbar()
 
 pulseWidget:set_width(width)
 pulseWidget.step = step
