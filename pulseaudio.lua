@@ -42,7 +42,7 @@ function pulseaudio:GetState()
 
 	-- if the cmd can't be found
 	if f == nil then
-		f.close()
+		f:close()
 		return false
 	end
 
@@ -78,7 +78,7 @@ function pulseaudio:GetState()
 	end
 
 
-	f.close()
+	f:close()
 end
 
 -- Sets the volume of the default sink to vol from 0 to 1.
