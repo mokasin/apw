@@ -5,7 +5,7 @@ Awesome Pulseaudio Widget (APW) is a little widget for
 [Awesome WM](http://awesome.naquadah.org/), using the awful progressbar widget,
 to display default's sink volume and control Pulseaudio.
 
-It's compatible to Awesome 3.5.
+It's compatible with Awesome 3.5.
 
 First time I'm using Lua. So it might be a little bit quirky.
 
