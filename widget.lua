@@ -43,25 +43,30 @@ function pulseWidget.setColor(mute)
 	end
 end
 
-function pulseWidget.Update()
+local function _update()
 	pulseWidget:set_value(p.Volume)
 	pulseWidget.setColor(p.Mute)
 end
 
 function pulseWidget.Up()
 	p:SetVolume(p.Volume + pulseWidget.step)
-	pulseWidget.Update()
+	_update()
 end	
 
 function pulseWidget.Down()
 	p:SetVolume(p.Volume - pulseWidget.step)
-	pulseWidget.Update()
+	_update()
 end	
 
 
 function pulseWidget.ToggleMute()
 	p:ToggleMute()
-	pulseWidget.Update()
+	_update()
+end
+
+function pulseWidget.Update()
+	p:UpdateState()
+	 _update()
 end
 
 -- register mouse button actions
@@ -74,7 +79,6 @@ pulseWidget:buttons(awful.util.table.join(
 
 
 -- initialize
-pulseWidget.Update(false)
-pulseWidget.setColor(p.Mute)
+_update()
 
 return pulseWidget
