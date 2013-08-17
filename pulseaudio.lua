@@ -42,7 +42,6 @@ function pulseaudio:GetState()
 
 	-- if the cmd can't be found
 	if f == nil then
-		f:close()
 		return false
 	end
 
