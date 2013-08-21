@@ -32,17 +32,16 @@ function pulseaudio:Create()
 	o.Mute = false   -- state of the mute flag of the default sink
 
 	-- retreive current state from Pulseaudio
-	pulseaudio.GetState(o)
+	pulseaudio.UpdateState(o)
 
 	return o
 end
 
-function pulseaudio:GetState()
+function pulseaudio:UpdateState()
 	local f = io.popen(cmd .. " dump")
 
 	-- if the cmd can't be found
 	if f == nil then
-		f:close()
 		return false
 	end
 
@@ -71,12 +70,7 @@ function pulseaudio:GetState()
 		end
 	end
 
-	if m == "yes" then
-		self.Mute = true
-	else
-		self.Mute = false
-	end
-
+	self.Mute = m == "yes"
 
 	f:close()
 end
@@ -95,8 +89,8 @@ function pulseaudio:SetVolume(vol)
 	-- set…
 	io.popen(cmd .. " set-sink-volume " .. default_sink .. " " .. string.format("0x%x", vol))
 
-	-- …and update values.
-	self:GetState()
+	-- …and update values
+	self:UpdateState()
 end
 
 
@@ -109,7 +103,7 @@ function pulseaudio:ToggleMute()
 	end
 	
 	-- …and update values.
-	self:GetState()
+	self:UpdateState()
 end
 
 
