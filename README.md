@@ -43,7 +43,7 @@ changed from somewhere else.
 
 ```lua
 APWTimer = timer({ timeout = 0.5 }) -- set update interval in s
-APWTimer:connect_signal("timeout", AWP.Update)
+APWTimer:connect_signal("timeout", APW.Update)
 APWTimer:start()
 ```
 
