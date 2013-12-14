@@ -29,6 +29,7 @@ local color_bg_mute = '#532a15' -- background color when muted
 
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local pulseaudio = require("apw.pulseaudio")
 
 local p = pulseaudio:Create()
@@ -39,6 +40,12 @@ pulseBar:set_width(width)
 pulseBar.step = step
 
 local pulseWidget = wibox.layout.margin(pulseBar, margin_right, margin_left, margin_top, margin_bottom)
+
+-- default colors overridden by Beautiful theme
+color = beautiful.apw_fg_color or color
+color_bg = beautiful.apw_bg_color or color_bg
+color_mute = beautiful.apw_mute_fg_color or color_mute
+color_bg_mute = beautiful.apw_mute_bg_color or color_bg_mute
 
 function pulseWidget.setColor(mute)
 	if mute then
