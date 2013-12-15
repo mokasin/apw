@@ -25,6 +25,8 @@ local color         = '#698f1e' -- foreground color of progessbar
 local color_bg      = '#33450f' -- background color
 local color_mute    = '#be2a15' -- foreground color when muted
 local color_bg_mute = '#532a15' -- background color when muted
+local mixer         = 'pavucontrol' -- mixer command
+
 -- End of configuration
 
 local awful = require("awful")
@@ -62,6 +64,10 @@ local function _update()
 	pulseWidget.setColor(p.Mute)
 end
 
+function pulseWidget.SetMixer(command)
+   mixer = command
+end
+
 function pulseWidget.Up()
 	p:SetVolume(p.Volume + pulseBar.step)
 	_update()
@@ -83,9 +89,15 @@ function pulseWidget.Update()
 	 _update()
 end
 
+function pulseWidget.ToggleMixer()
+   awful.util.spawn_with_shell( mixer )
+end
+
+
 -- register mouse button actions
 pulseWidget:buttons(awful.util.table.join(
 		awful.button({ }, 1, pulseWidget.ToggleMute),
+		awful.button({ }, 3, pulseWidget.ToggleMixer),
 		awful.button({ }, 4, pulseWidget.Up),
 		awful.button({ }, 5, pulseWidget.Down)
 	)
