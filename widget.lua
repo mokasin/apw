@@ -16,6 +16,10 @@
 
 -- Configuration variables
 local width         = 40        -- width in pixels of progressbar
+local margin_right  = 2         -- right margin in pixels of progressbar 
+local margin_left   = 2         -- left margin in pixels of progressbar 
+local margin_top    = 2         -- top margin in pixels of progressbar 
+local margin_bottom = 2         -- bottom margin in pixels of progressbar  
 local step          = 0.05      -- stepsize for volume change (ranges from 0 to 1)
 local color         = '#698f1e' -- foreground color of progessbar
 local color_bg      = '#33450f' -- background color
@@ -24,37 +28,40 @@ local color_bg_mute = '#532a15' -- background color when muted
 -- End of configuration
 
 local awful = require("awful")
+local wibox = require("wibox")
 local pulseaudio = require("apw.pulseaudio")
 
 local p = pulseaudio:Create()
 
-local pulseWidget = awful.widget.progressbar()
+local pulseBar = awful.widget.progressbar()
 
-pulseWidget:set_width(width)
-pulseWidget.step = step
+pulseBar:set_width(width)
+pulseBar.step = step
+
+local pulseWidget = wibox.layout.margin(pulseBar, margin_right, margin_left, margin_top, margin_bottom)
 
 function pulseWidget.setColor(mute)
 	if mute then
-		pulseWidget:set_color(color_mute)
-		pulseWidget:set_background_color(color_bg_mute)
+		pulseBar:set_color(color_mute)
+		pulseBar:set_background_color(color_bg_mute)
 	else
-		pulseWidget:set_color(color)
-		pulseWidget:set_background_color(color_bg)
+		pulseBar:set_color(color)
+		pulseBar:set_background_color(color_bg)
 	end
 end
 
 local function _update()
-	pulseWidget:set_value(p.Volume)
+	pulseBar:set_value(p.Volume)
 	pulseWidget.setColor(p.Mute)
 end
 
 function pulseWidget.Up()
-	p:SetVolume(p.Volume + pulseWidget.step)
+	p:SetVolume(p.Volume + pulseBar.step)
 	_update()
 end	
 
 function pulseWidget.Down()
-	p:SetVolume(p.Volume - pulseWidget.step)
+	p:SetVolume(p.Volume - pulseBar.step)
 	_update()
 end	
 
