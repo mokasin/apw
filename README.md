@@ -37,6 +37,34 @@ awful.key({ }, "XF86AudioMute",         APW.ToggleMute),
 
 ```
 
+Theme it
+--------
+
+Just add these variables to your Beautiful theme.lua file and set them
+to whatever colors or gradients you wish:
+
+```lua
+--{{{ APW
+theme.apw_fg_color = {type = 'linear', from = {0, 0}, to={40,0},
+	stops={{0, "#CC8888"}, {.4, "#88CC88"}, {.8, "#8888CC"}}}
+theme.apw_bg_color = "#333333";
+theme.apw_mute_fg_color = "#CC9393"
+theme.apw_mute_bg_color = "#663333"
+--}}}
+
+```
+
+Mixer
+----
+
+Right-clicking the widget launches a mixer.  By default this is `pavucontrol`,
+but you can set a different command by calling SetMixer() on your APW object:
+
+```lua
+local APW = require("apw/widget")
+APW:SetMixer("mixer_command -whatever")
+```
+
 ### Tip
 You could update the widget periodically if you'd like. In case, the volume is
 changed from somewhere else.
