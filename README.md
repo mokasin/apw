@@ -47,12 +47,13 @@ to whatever colors or gradients you wish:
 --{{{ APW
 theme.apw_fg_color = {type = 'linear', from = {0, 0}, to={40,0},
 	stops={{0, "#CC8888"}, {.4, "#88CC88"}, {.8, "#8888CC"}}}
-theme.apw_bg_color = "#333333";
+theme.apw_bg_color = "#333333"
 theme.apw_mute_fg_color = "#CC9393"
 theme.apw_mute_bg_color = "#663333"
 --}}}
 
 ```
+*Important:* `beautiful.init` must be called before you `require` apw for theming to work.
 
 Mixer
 ----
