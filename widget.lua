@@ -16,10 +16,10 @@
 
 -- Configuration variables
 local width         = 40        -- width in pixels of progressbar
-local margin_right  = 2         -- right margin in pixels of progressbar 
-local margin_left   = 2         -- left margin in pixels of progressbar 
-local margin_top    = 2         -- top margin in pixels of progressbar 
-local margin_bottom = 2         -- bottom margin in pixels of progressbar  
+local margin_right  = 0         -- right margin in pixels of progressbar 
+local margin_left   = 0         -- left margin in pixels of progressbar 
+local margin_top    = 0         -- top margin in pixels of progressbar 
+local margin_bottom = 0         -- bottom margin in pixels of progressbar  
 local step          = 0.05      -- stepsize for volume change (ranges from 0 to 1)
 local color         = '#698f1e' -- foreground color of progessbar
 local color_bg      = '#33450f' -- background color
