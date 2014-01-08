@@ -75,6 +75,11 @@ function pulseaudio:UpdateState()
 	f:close()
 end
 
+-- Run process and wait for it to end
+function run(cmd)
+    io.popen(cmd):read("*a")
+end
+
 -- Sets the volume of the default sink to vol from 0 to 1.
 function pulseaudio:SetVolume(vol)
 	if vol > 1 then
@@ -87,7 +92,7 @@ function pulseaudio:SetVolume(vol)
 
 	vol = vol * 0x10000
 	-- set…
-	io.popen(cmd .. " set-sink-volume " .. default_sink .. " " .. string.format("0x%x", vol))
+	run(cmd .. " set-sink-volume " .. default_sink .. " " .. string.format("0x%x", vol))
 
 	-- …and update values
 	self:UpdateState()
@@ -97,9 +102,9 @@ end
 -- Toggles the mute flag of the default default_sink.
 function pulseaudio:ToggleMute()
 	if self.Mute then
-		io.popen(cmd .. " set-sink-mute " .. default_sink .. " 0")
+		run(cmd .. " set-sink-mute " .. default_sink .. " 0")
 	else
-		io.popen(cmd .. " set-sink-mute " .. default_sink .. " 1")
+		run(cmd .. " set-sink-mute " .. default_sink .. " 1")
 	end
 	
 	-- …and update values.
