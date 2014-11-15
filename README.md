@@ -1,3 +1,7 @@
+This project is not developed any longer. It still works, though. I do not use it any more, nor do I use awesome. I am willing to merge bug fixes and improvements that do not alter the appearance or behaviour. Breaking changes in this sense, I will not merge.
+
+You are welcome, to fork this project under a different name.
+
 Awesome Pulseaudio Widget
 =========================
 
