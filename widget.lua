@@ -1,25 +1,25 @@
 -- Copyright 2013 mokasin
 -- This file is part of the Awesome Pulseaudio Widget (APW).
--- 
+--
 -- APW is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
 -- the Free Software Foundation, either version 3 of the License, or
 -- (at your option) any later version.
--- 
+--
 -- APW is distributed in the hope that it will be useful,
 -- but WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
--- 
+--
 -- You should have received a copy of the GNU General Public License
 -- along with APW. If not, see <http://www.gnu.org/licenses/>.
 
 -- Configuration variables
 local width         = 40        -- width in pixels of progressbar
-local margin_right  = 0         -- right margin in pixels of progressbar 
-local margin_left   = 0         -- left margin in pixels of progressbar 
-local margin_top    = 0         -- top margin in pixels of progressbar 
-local margin_bottom = 0         -- bottom margin in pixels of progressbar  
+local margin_right  = 0         -- right margin in pixels of progressbar
+local margin_left   = 0         -- left margin in pixels of progressbar
+local margin_top    = 0         -- top margin in pixels of progressbar
+local margin_bottom = 0         -- bottom margin in pixels of progressbar
 local step          = 0.05      -- stepsize for volume change (ranges from 0 to 1)
 local color         = '#698f1e' -- foreground color of progessbar
 local color_bg      = '#33450f' -- background color
@@ -59,7 +59,7 @@ local function make_stack(w1, w2)
         w1:draw(wibox, cr, width, height)
         w2:draw(wibox, cr, width, height)
     end
-  
+
     update = function() ret:emit_signal("widget::updated") end
     w1:connect_signal("widget::updated", update)
     w2:connect_signal("widget::updated", update)
@@ -72,11 +72,11 @@ local pulseText
 if show_text then
     pulseText = wibox.widget.textbox()
     pulseText:set_align("center")
-    pulseWidget = wibox.layout.margin(make_stack(pulseBar, pulseText), 
-                                            margin_right, margin_left, 
+    pulseWidget = wibox.layout.margin(make_stack(pulseBar, pulseText),
+                                            margin_right, margin_left,
                                             margin_top, margin_bottom)
 else
-    pulseWidget = wibox.layout.margin(pulseBar, 
+    pulseWidget = wibox.layout.margin(pulseBar,
                                             margin_right, margin_left,
                                             margin_top, margin_bottom)
 end
@@ -94,9 +94,9 @@ end
 local function _update()
 	pulseBar:set_value(p.Volume)
 	pulseWidget.setColor(p.Mute)
-    if show_text then  
+    if show_text then
         pulseText:set_markup('<span color="'..text_color..'">'..math.ceil(p.Volume*100)..'%</span>')
-        
+
     end
 end
 
@@ -107,12 +107,12 @@ end
 function pulseWidget.Up()
 	p:SetVolume(p.Volume + pulseBar.step)
 	_update()
-end	
+end
 
 function pulseWidget.Down()
 	p:SetVolume(p.Volume - pulseBar.step)
 	_update()
-end	
+end
 
 
 function pulseWidget.ToggleMute()
