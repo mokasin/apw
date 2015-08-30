@@ -46,6 +46,7 @@ function pulseaudio:UpdateState()
 	end
 
 	local out = f:read("*a")
+	f:close()
 
 	-- get the default sink
 	default_sink = string.match(out, "set%-default%-sink ([^\n]+)")
@@ -71,13 +72,13 @@ function pulseaudio:UpdateState()
 	end
 
 	self.Mute = m == "yes"
-
-	f:close()
 end
 
 -- Run process and wait for it to end
 function run(cmd)
-    io.popen(cmd):read("*a")
+    p = io.popen(cmd)
+    p:read("*a")
+    p:close()
 end
 
 -- Sets the volume of the default sink to vol from 0 to 1.
