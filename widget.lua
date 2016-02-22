@@ -32,6 +32,7 @@ local text_color    = '#fff' -- color of text
 -- End of configuration
 
 local awful = require("awful")
+local spawn_with_shell = awful.util.spawn_with_shell or awful.spawn.with_shell
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local pulseaudio = require("apw.pulseaudio")
@@ -126,7 +127,7 @@ function pulseWidget.Update()
 end
 
 function pulseWidget.LaunchMixer()
-	awful.util.spawn_with_shell( mixer )
+	spawn_with_shell( mixer )
 end
 
 
