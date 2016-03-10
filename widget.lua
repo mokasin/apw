@@ -140,6 +140,8 @@ pulseWidget:buttons(awful.util.table.join(
 	)
 )
 
+pulseWidget.pulse = p
+
 
 -- initialize
 _update()

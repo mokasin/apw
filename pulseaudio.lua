@@ -24,7 +24,7 @@ local cmd = "pacmd"
 local default_sink = ""
 
 function pulseaudio:Create()
-	o = {}
+	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 
@@ -75,10 +75,10 @@ function pulseaudio:UpdateState()
 end
 
 -- Run process and wait for it to end
-function run(cmd)
-    p = io.popen(cmd)
-    p:read("*a")
-    p:close()
+local function run(command)
+	local p = io.popen(command)
+	p:read("*a")
+	p:close()
 end
 
 -- Sets the volume of the default sink to vol from 0 to 1.
