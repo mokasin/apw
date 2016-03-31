@@ -61,7 +61,7 @@ local function make_stack(w1, w2)
         w2:draw(wibox, cr, width, height)
     end
 
-    update = function() ret:emit_signal("widget::updated") end
+    local update = function() ret:emit_signal("widget::updated") end
     w1:connect_signal("widget::updated", update)
     w2:connect_signal("widget::updated", update)
 
