@@ -47,9 +47,9 @@ text_color = beautiful.apw_text_colot or text_color
 
 local p = pulseaudio:Create()
 
-local pulseBar = awful.widget.progressbar()
+local pulseBar = wibox.widget.progressbar()
 
-pulseBar:set_width(width)
+pulseBar.forced_width = width
 pulseBar.step = step
 
 local function make_stack(w1, w2)
@@ -73,11 +73,11 @@ local pulseText
 if show_text then
     pulseText = wibox.widget.textbox()
     pulseText:set_align("center")
-    pulseWidget = wibox.layout.margin(make_stack(pulseBar, pulseText),
+    pulseWidget = wibox.container.margin(make_stack(pulseBar, pulseText),
                                             margin_right, margin_left,
                                             margin_top, margin_bottom)
 else
-    pulseWidget = wibox.layout.margin(pulseBar,
+    pulseWidget = wibox.container.margin(pulseBar,
                                             margin_right, margin_left,
                                             margin_top, margin_bottom)
 end
