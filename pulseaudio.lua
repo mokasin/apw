@@ -31,7 +31,7 @@ function pulseaudio:Create()
 	o.Volume = 0     -- volume of default sink
 	o.Mute = false   -- state of the mute flag of the default sink
 
-	-- retreive current state from Pulseaudio
+	-- retrieve current state from pulseaudio
 	pulseaudio.UpdateState(o)
 
 	return o
@@ -40,7 +40,7 @@ end
 function pulseaudio:UpdateState()
 	local f = io.popen(cmd .. " dump")
 
-	-- if the cmd can't be found
+	-- if the cmd cannot be found
 	if f == nil then
 		return false
 	end
@@ -48,7 +48,7 @@ function pulseaudio:UpdateState()
 	local out = f:read("*a")
 	f:close()
 
-	-- get the default sink
+	-- find default sink
 	default_sink = string.match(out, "set%-default%-sink ([^\n]+)")
 
 	if default_sink == nil then
@@ -56,14 +56,14 @@ function pulseaudio:UpdateState()
 		return false
 	end
 
-	-- retreive volume of default sink
+	-- retrieve volume of default sink
 	for sink, value in string.gmatch(out, "set%-sink%-volume ([^%s]+) (0x%x+)") do
 		if sink == default_sink then
 			self.Volume = tonumber(value) / 0x10000
 		end
 	end
 
-	-- retreive mute state of default sink
+	-- retrieve mute state of default sink
 	local m
 	for sink, value in string.gmatch(out, "set%-sink%-mute ([^%s]+) (%a+)") do
 		if sink == default_sink then
@@ -108,7 +108,7 @@ function pulseaudio:ToggleMute()
 		run(cmd .. " set-sink-mute " .. default_sink .. " 1")
 	end
 
-	-- …and update values.
+	-- …and updates values.
 	self:UpdateState()
 end
 
