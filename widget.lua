@@ -52,28 +52,16 @@ local pulseBar = wibox.widget.progressbar()
 pulseBar.forced_width = width
 pulseBar.step = step
 
-local function make_stack(w1, w2)
-    local ret = wibox.widget.base.make_widget()
-
-    ret.fit = function(self, ...) return w1:fit(...) end
-    ret.draw = function(self, wibox, cr, width, height)
-        w1:draw(wibox, cr, width, height)
-        w2:draw(wibox, cr, width, height)
-    end
-
-    local update = function() ret:emit_signal("widget::updated") end
-    w1:connect_signal("widget::updated", update)
-    w2:connect_signal("widget::updated", update)
-
-    return ret
-end
-
 local pulseWidget
 local pulseText
 if show_text then
     pulseText = wibox.widget.textbox()
     pulseText:set_align("center")
-    pulseWidget = wibox.container.margin(make_stack(pulseBar, pulseText),
+    pulseWidget = wibox.container.margin(wibox.widget {
+                                              pulseBar,
+                                              pulseText,
+                                              layout = wibox.layout.stack
+                                            },
                                             margin_right, margin_left,
                                             margin_top, margin_bottom)
 else
