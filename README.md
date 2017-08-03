@@ -5,6 +5,7 @@ Note, that…
 You are welcome to fork this and I will add a link to it in the README.
 Currently known, feature adding forks:
 * [seniorivn/apw](https://github.com/seniorivn/apw)
+* [gehaxelt/apw](https://github.com/gehaxelt/apw) adds logic to toggle microphone state
 
 Awesome Pulseaudio Widget
 =========================
@@ -13,7 +14,7 @@ Awesome Pulseaudio Widget (APW) is a little widget for
 [Awesome WM](http://awesome.naquadah.org/), using the awful progressbar widget,
 to display default's sink volume and control Pulseaudio.
 
-It's compatible with Awesome 3.5.
+It's compatible with Awesome 4.0.
 
 First time I'm using Lua. So it might be a little bit quirky.
 
