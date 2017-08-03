@@ -8,7 +8,7 @@ merge.
 You are welcome to fork APW and I will add a link to it in the README.
 Currently known feature adding forks:
 * [seniorivn/apw](https://github.com/seniorivn/apw)
-* [gehaxelt/apw](https://github.com/gehaxelt/apw) adds logic to toggle microphone state
+* [gehaxelt/apw](https://github.com/gehaxelt/apw) adds logic to toggle the microphone state
 
 Awesome Pulseaudio Widget
 =========================
