@@ -129,6 +129,7 @@ pulseWidget:buttons(awful.util.table.join(
 )
 
 pulseWidget.pulse = p
+pulseWidget.pulseBar = pulseBar
 
 
 -- initialize
