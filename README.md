@@ -78,6 +78,31 @@ directly in `widget.lua` (for example to add a margin).
 It is advisable to customize the source file in a separate branch. This makes
 it easy to update to a new version of APW via rebasing.
 
+### Overriding hidden widget properties without directly editing widget.lua
+
+`.pulseBar` and `.pulse` widget properies allowing to directly
+override some widget behavior or properties which are not customizeable
+by `beautiful` theme variables.
+
+```lua
+  local volume = require("third_party/apw/widget")
+  
+  -- adjust progress bar step:
+  volume.pulseBar.step = 0.02
+  
+  -- set Scroll Lock LED on keyboard to show Mute status:
+  volume.pulse.OrigToggleMute = w.volume.pulse.ToggleMute
+  volume.pulse.ToggleMute = function(self)
+      w.volume.pulse.OrigToggleMute(self)
+      if w.volume.pulse.Mute then
+        awful.spawn.spawn('xset led named "Scroll Lock"')
+      else
+        awful.spawn.spawn('xset -led named "Scroll Lock"')
+      end
+  end
+```
+
+
 Mixer
 ----
 
