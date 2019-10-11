@@ -91,10 +91,10 @@ by `beautiful` theme variables.
   volume.pulseBar.step = 0.02
   
   -- set Scroll Lock LED on keyboard to show Mute status:
-  volume.pulse.OrigToggleMute = w.volume.pulse.ToggleMute
+  volume.pulse.OrigToggleMute = volume.pulse.ToggleMute
   volume.pulse.ToggleMute = function(self)
-      w.volume.pulse.OrigToggleMute(self)
-      if w.volume.pulse.Mute then
+      volume.pulse.OrigToggleMute(self)
+      if volume.pulse.Mute then
         awful.spawn.spawn('xset led named "Scroll Lock"')
       else
         awful.spawn.spawn('xset -led named "Scroll Lock"')
